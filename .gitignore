@@ -157,3 +157,4 @@ word2vec/
 
 # API keys
 auth/
+.DS_Store
