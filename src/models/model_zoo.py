@@ -36,9 +36,9 @@ class LSTMmodel(nn.Module):
 
     def forward(self, x):
         # input shape: (# of reviews in batch, max review length, 300)
-        x, (hn, cn) = self.LSTM(x)  # x is shape (# of reviews, max review length, 2 * 300)
+        x, (hn, cn) = self.LSTM(x)  # x is shape (# of reviews, max review length, 2 * hidden_size)
         # make prediction using final hidden state from last layer
-        hn_last = x[:, -1, :] # shape (# of reviews, 2 * 300)
+        hn_last = x[:, -1, :] # shape (# of reviews, 2 * hidden_size)
         hn_last = self.linear(hn_last) # (# of reviews, 4)
         out = self.softmax(hn_last) # output probabilities, shape: (# of reviews in batch, 4)
         return out
