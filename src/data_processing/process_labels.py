@@ -21,7 +21,6 @@ class label_generator():
         """
         Trim food and service arrays to only include labeled reviews
         """
-
         # Trim reviews
         trim_food_labels = self.food_labels[~np.isnan(self.food_labels)]
         trim_service_labels = self.service_labels[~np.isnan(self.service_labels)]
