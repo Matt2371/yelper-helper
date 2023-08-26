@@ -18,6 +18,7 @@ class LSTMmodel(nn.Module):
 
         Addtional Comments:
         Features are 300 dimension
+        return out
         Batch is # of reviews in batch
         Timestep/sequence length is L in the docs
         """
@@ -29,14 +30,15 @@ class LSTMmodel(nn.Module):
         self.dropout_prob = dropout_prob
 
         
-        self.LSTM = nn.LSTM(input_size, hidden_size, num_layers, batch_first = True)
-        self.dropout = nn.Dropout(dropout_prob)
-        self.linear = nn.Linear(hidden_size, output_size)
-        self.softmax = nn.Softmax(output_size)
+        self.LSTM = nn.LSTM(input_size, hidden_size, num_layers, batch_first = True, dropout = dropout_prob, bidirectional=True)
+        self.linear = nn.Linear(2*hidden_size, output_size)
+        self.softmax = nn.Softmax(dim = 1)
 
     def forward(self, x):
-        x = self.LSTM(x)    # input shape: (# of reviews in batch, max review length, 300)
-        x = self.dropout(x)
-        x = self.linear(x)
-        x = self.softmax(x) # output shape: (# of reviews in batch, max review length, 4)
-        return x
+        # input shape: (# of reviews in batch, max review length, 300)
+        x, (hn, cn) = self.LSTM(x)  # x is shape (# of reviews, max review length, 2 * 300)
+        # make prediction using final hidden state from last layer
+        hn_last = x[:, -1, :] # shape (# of reviews, 2 * 300)
+        hn_last = self.linear(hn_last) # (# of reviews, 4)
+        out = self.softmax(hn_last) # output probabilities, shape: (# of reviews in batch, 4)
+        return out
