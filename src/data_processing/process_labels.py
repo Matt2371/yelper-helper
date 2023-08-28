@@ -19,7 +19,7 @@ class label_generator():
     
     def trim_unlabeled_reviews(self):
         """
-        Trim food and service arrays to only include labeled reviews
+        Trim food and service arrays to only include labeled reviews. Also checks for intermediate NA (unlabelled reviews)
         """
         # Trim reviews
         trim_food_labels = self.food_labels[~np.isnan(self.food_labels)]
