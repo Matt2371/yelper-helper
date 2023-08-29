@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import torch
 
 class label_generator():
     """
@@ -80,7 +81,10 @@ class label_generator():
         return
     
     def trim_and_fetch_labels(self):
-        """Run the trim_unlabeled_reviews() method and get_labels() method. Returns one-hot labels"""
+        """
+        Run the trim_unlabeled_reviews() method and get_labels() method. 
+        Returns one-hot labels as PyTorch tensor
+        """
         self.trim_unlabeled_reviews()
         self.get_labels()
-        return self.result
+        return torch.tensor(self.result)

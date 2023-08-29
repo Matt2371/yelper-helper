@@ -50,7 +50,7 @@ class test_label_generator(unittest.TestCase):
         label_gen = label_generator(input_food, input_service)
 
         expected = np.array([[0,1,0,0],[0,0,1,0],[0,0,0,1],[1,0,0,0]])
-        np.testing.assert_array_equal(label_gen.trim_and_fetch_labels(), expected)
+        np.testing.assert_array_equal(label_gen.trim_and_fetch_labels().numpy(), expected)
 
 if __name__ == '__main__':
     unittest.main()
