@@ -18,5 +18,3 @@ def train_val_test(data, train_frac=0.6, val_frac=0.2, test_frac=0.2):
 
     train, val, test = data[:train_size], data[train_size:train_size+val_size], data[train_size+val_size:]
     return train, val, test
-
-
