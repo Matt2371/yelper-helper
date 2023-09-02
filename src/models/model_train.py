@@ -104,7 +104,7 @@ def training_loop(model, criterion, optimizer, patience, dataloader_train, datal
     for epoch in tqdm(range(num_epochs), desc = "Training epochs: "):
         train_loss = train_one_epoch(model, criterion, optimizer, dataloader_train)
         train_loss_list.append(train_loss)
-        val_loss = val_one_epoch(model, criterion, optimizer, dataloader_val)
+        val_loss = val_one_epoch(model, criterion, dataloader_val)
         val_loss_list.append(val_loss)
         
         if early_stopper.early_stop(validation_loss=val_loss):
@@ -133,5 +133,5 @@ def plot_train_val(train_loss_list, val_loss_list, ax = None):
         plt.plot(train_loss_list)
         plt.plot(val_loss_list)
         plt.legend(['training loss', 'validation loss'])
-        plt.set_xlabel('Epochs')
-        plt.set_ylabel('Loss')
+        plt.xlabel('Epochs')
+        plt.ylabel('Loss')

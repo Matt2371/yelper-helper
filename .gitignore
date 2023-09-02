@@ -158,3 +158,6 @@ word2vec/
 # API keys
 auth/
 .DS_Store
+
+# Ignore bash files
+jobs/
