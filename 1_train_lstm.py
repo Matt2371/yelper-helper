@@ -32,7 +32,8 @@ y = label_generator(food_labels=food_labels.values,
 reviews = reviews[:len(y)].copy()
 # Get word2vec embedded reviews
 model = KeyedVectors.load('word2vec/word2vec-google-news-300.model') # Load word2vec model
-x_all = process_reviews_w2v(reviews=reviews, model=model)
+x_all = process_reviews_w2v(reviews=reviews, model=model) # (1000, max review length, 300)
+x_all = x_all[:, :200, :] # cut reviews to only keep first 200 words
 # Train/Val/Test split
 x_train, x_val, x_test = train_val_test(x_all, train_frac=0.6, val_frac=0.2, test_frac=0.2)
 y_train, y_val, y_test = train_val_test(y, train_frac=0.6, val_frac=0.2, test_frac=0.2)
@@ -45,8 +46,8 @@ dataloader_train, dataloader_val = (DataLoader(dataset_train, batch_size=100, sh
 ## INSTANTIATE AND TRAIN MODEL
 # instatiate model
 input_size = 300
-hidden_size = 50
-num_layers = 1
+hidden_size = 300
+num_layers = 2
 dropout_prob = 0.3
 output_size = 4
 torch.manual_seed(10)
@@ -56,9 +57,9 @@ criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(lstm_model.parameters(), lr=0.0001)
 # run training loop
 train_loss_list, val_loss_list = training_loop(model=lstm_model, criterion=criterion, 
-                                               optimizer=optimizer, patience=3, 
+                                               optimizer=optimizer, patience=300, 
                                                dataloader_train=dataloader_train, 
-                                               dataloader_val=dataloader_val, epochs=50)
+                                               dataloader_val=dataloader_val, epochs=100)
 
 print(f'Training Complete! Final val error:{val_loss_list[-1]}, epochs trained: {len(val_loss_list)}')
 
