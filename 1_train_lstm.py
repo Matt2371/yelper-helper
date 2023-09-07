@@ -39,7 +39,7 @@ x_train, x_val, x_test = train_val_test(x_all, train_frac=0.6, val_frac=0.2, tes
 y_train, y_val, y_test = train_val_test(y, train_frac=0.6, val_frac=0.2, test_frac=0.2)
 # Create torch datasets
 dataset_train, dataset_val = (TensorDataset(x_train, y_train), TensorDataset(x_val, y_val))
-# Create torch dataloader (also include OVERSAMPLING of minority class)
+# Create torch dataloader
 dataloader_train, dataloader_val = (DataLoader(dataset_train, batch_size=100, shuffle=True),
                                     DataLoader(dataset_val, batch_size=100, shuffle=True))
 
@@ -57,7 +57,7 @@ criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(lstm_model.parameters(), lr=0.0001)
 # run training loop
 train_loss_list, val_loss_list = training_loop(model=lstm_model, criterion=criterion, 
-                                               optimizer=optimizer, patience=300, 
+                                               optimizer=optimizer, patience=5, 
                                                dataloader_train=dataloader_train, 
                                                dataloader_val=dataloader_val, epochs=100)
 
@@ -68,4 +68,4 @@ plt.savefig(f'jobs/out_h{hidden_size}_l{num_layers}_dp0{dropout_prob * 10}.png')
 
 
 # save trained model
-torch.save(lstm_model.state_dict(), f'jobs/out_h{hidden_size}_l{num_layers}_dp0{dropout_prob * 10}.pt')
+torch.save(lstm_model.state_dict(), f'jobs/lstm_model.pt')

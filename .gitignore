@@ -161,3 +161,6 @@ auth/
 
 # Ignore bash files
 jobs/
+
+# Ignore saved models
+*.pt
