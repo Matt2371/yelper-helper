@@ -36,4 +36,5 @@ The source code is organized into two main modules: data_processing and models.
 The complete LSTM training loop can be accessed using the 'training_loop' function. You will need to provide the following arguments: the PyTorch model, criterion (e.g., cross-entropy loss), PyTorch optimizer, desired patience value for the early stopper, PyTorch dataloader objects for both training and validation, and the max number of epochs to run. The function returns avg training and validation losses for each epoch in two separate lists.
 
 The complete BERT finetuning loop can be accessed using the 'bert_training_loop' function. You will need to provide the following arguments: custom PyTorch BERT model, criterion (e.g., cross-entropy loss), PyTorch optimizer, desired patience value for the early stopper, PyTorch dataloader objects for both training and validation, the max number of epochs to run, and a boolean flag to enable early stopping. The function returns avg training and validation losses for each epoch in two separate lists.
+
 3. The *model_zoo* contains class definitions for PyTorch models used in the project.
