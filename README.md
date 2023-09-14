@@ -38,3 +38,14 @@ The source code is organized into two main modules: data_processing and models.
     - The complete BERT finetuning loop can be accessed using the 'bert_training_loop' function. You will need to provide the following arguments: custom PyTorch BERT model, criterion (e.g., cross-entropy loss), PyTorch optimizer, desired patience value for the early stopper, PyTorch dataloader objects for both training and validation, the max number of epochs to run, and a boolean flag to enable early stopping. The function returns avg training and validation losses for each epoch in two separate lists.
 
 3. The *model_zoo* contains class definitions for PyTorch models used in the project.
+    - LSTMmodel: a one bi-directional LSTM layer with defined dropout probability
+        - Takes input_size 300 dim to correspond to word2vec embedding for each token.
+    - BERTClass: a pretrained 'bert-base-uncased' model layer + 1 dropout layer with 30% probability.
+
+## Tests
+Contains unittests of the experimental process throughout, with a focus on data processing and model shape in the forward pass. To run a unittest, run the command `py -m unittest tests.(name of test script)`
+
+## Notebook & Scripts
+The following notebooks have been retired due to limited computational resources but still shows how general steps on data processing and training the LSTM or finetuning BERT. The latest code has been transferred to their respective script counterparts, which are now submitted to the High-Performance Computing (HPC) cluster for training and fine-tuning.
+- *1_train_lstm.ipynb*
+- *3_finetune_bert.ipynb*
