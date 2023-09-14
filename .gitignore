@@ -164,3 +164,4 @@ jobs/
 
 # Ignore saved models
 *.pt
+src/models/saved_models/desktop.ini
